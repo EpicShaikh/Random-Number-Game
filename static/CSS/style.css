@@ -47,15 +47,28 @@ img {
   background-color: #0e1525;
 }
 
-button {
-  background-color: #1c2333;
-  border: none;
-  color: darkblue;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+.group button {
+  background-color: #1c2333; /* Green background */
+  border: 5px #0e1525; /* Green border */
+  color: darkblue; /* White text */
+  padding: 16px 32px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  font-size: 16px
+}
+
+/* Clear floats (clearfix hack) */
+.group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.group button:hover {
+  background-color: #16181d;
 }
