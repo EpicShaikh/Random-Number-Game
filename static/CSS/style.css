@@ -50,7 +50,7 @@ img {
 .group button {
   background-color: #1c2333; /* Green background */
   border: 5px #0e1525; /* Green border */
-  color: darkblue; /* White text */
+  color: #7e75ff; /* White text */
   padding: 16px 32px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
@@ -71,7 +71,7 @@ img {
 /* Add a background color on hover */
 .group button:hover {
   background-color: #1c1f2c;
-  color: #060656;
+  color: #0200fc000;
 }
 .hide{
   color:#0e1525;
