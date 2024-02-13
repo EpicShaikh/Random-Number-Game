@@ -17,7 +17,7 @@ h2 {
 }
 
 p {
-  font-size: 12px;
+  font-size: 18px;
   font-family: sans-serif;
   background-color: #1c2333;
   padding: 20px;
@@ -75,4 +75,11 @@ img {
 }
 .hide{
   color:#0e1525;
+}
+
+.new {
+  font-size: 8px;
+  font-style: italic;
+  background-color: #0e1525;
+  padding: 0px;
 }

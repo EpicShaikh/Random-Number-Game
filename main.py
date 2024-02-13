@@ -23,4 +23,12 @@ def menu():
   f.close()
   return page
 
+@app.route('/login')
+def login():
+  page = ""
+  f = open("pages/login.html", "r")
+  page = f.read()
+  f.close()
+  return page
+
 app.run(host='0.0.0.0', port=81)
