@@ -50,7 +50,7 @@ img {
 .group button {
   background-color: #1c2333; /* Green background */
   border: 5px #0e1525; /* Green border */
-  color: #7e75ff; /* White text */
+  color: #0000ff; /* White text */
   padding: 16px 32px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
@@ -71,7 +71,7 @@ img {
 /* Add a background color on hover */
 .group button:hover {
   background-color: #1c1f2c;
-  color: #0200fc000;
+  color: #000085;
 }
 .hide{
   color:#0e1525;
@@ -82,4 +82,17 @@ img {
   font-style: italic;
   background-color: #0e1525;
   padding: 0px;
+}
+
+.login p {
+  text-align: center;
+}
+
+.login button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #849dd7;
+  padding: 10px 18px;
+  text-size: 16px
 }
