@@ -71,4 +71,8 @@ img {
 /* Add a background color on hover */
 .group button:hover {
   background-color: #1c1f2c;
+  color: #060656;
+}
+.hide{
+  color:#0e1525;
 }

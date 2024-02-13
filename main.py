@@ -15,6 +15,12 @@ def home():
   f.close()
   return page
   
-
+@app.route('/rng-menu')
+def menu():
+  page = ""
+  f = open("pages/rng-menu.html", "r")
+  page = f.read()
+  f.close()
+  return page
 
 app.run(host='0.0.0.0', port=81)
