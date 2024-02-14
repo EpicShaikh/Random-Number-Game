@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Login
+      Sign Up
     </title>
     <link rel="icon" href="/static/favicon.ico">
     <link href="static/CSS/style.css" rel="stylesheet" type="text/css" />
@@ -10,16 +10,14 @@
 
   <body>
     <h1>
-      Login
+      Sign Up
     </h1>
-    <p class="new">
-      Psssst! if you don't have an account, you can <a href="/signup">sign up here</a>
-    </p>
-    <form method="post" action="/login-success">
+    
+    <form method="post" action="/signup/new-user?">
       <div class="login">
         <p>Username: <input type="text" name="username" required></p>
         <p>Password: <input type="password" name="password" required></p>
-        <button type="submit">Login</button>
+        <button type="submit">Sign Up</button>
       </div>
     </form>
   </body>

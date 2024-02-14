@@ -3,7 +3,7 @@ from replit import db
 import os
 import random
 import time
-from flask import Flask
+from flask import Flask, request, redirect
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -31,4 +31,18 @@ def login():
   f.close()
   return page
 
+@app.route('/signup')
+def signup():
+  page = ""
+  f = open("pages/signup.html", "r")
+  page = f.read()
+  f.close()
+  return page
+
+@app.route('/login-success', methods=["POST"])
+def login_success():
+  page = ""
+  form = request.form
+  if form[]
+  
 app.run(host='0.0.0.0', port=81)
