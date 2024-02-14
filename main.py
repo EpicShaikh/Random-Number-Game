@@ -405,7 +405,7 @@ while ply == "y":
     time.sleep(1)
     os.system("clear")
     print(db['users'])
-    h = input("")
+    input()
     time.sleep(0)
     os.system("clear")
     continue
