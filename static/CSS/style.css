@@ -73,6 +73,7 @@ img {
   background-color: #1c1f2c;
   color: #000085;
 }
+
 .hide{
   color:#0e1525;
 }
@@ -95,4 +96,33 @@ img {
   background-color: #849dd7;
   padding: 10px 18px;
   text-size: 16px
+}
+
+.play button {
+  background-color: #1c2333; /* Green background */
+  border: 5px #0e1525; /* Green border */
+  color: #0000ff; /* White text */
+  padding: 16px 32px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+}
+
+/* Clear floats (clearfix hack) */
+.group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.group button:hover {
+  background-color: #1c1f2c;
+  color: #000085;
 }
