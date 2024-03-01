@@ -8,8 +8,8 @@ from flask import Flask, request, redirect
 
 app = Flask(__name__, static_url_path='/static')
 
-f = open("/static/num.txt", "r")
-num = eval(f.read())
+f = open("static/num.txt", "r")
+login_atts = eval(f.read())
 f.close()
 
 @app.route('/')
@@ -81,10 +81,11 @@ def signed():
 
   else:
     db["users"][user] = {"password":password, "salt":salt, "highscore":100}
+    return redirect("/rng-menu")
 
 @app.route('/login-success', methods=["POST"])
 def login_success():
-  global num
+  global login_atts
   page = ""
   form = request.form
   user = form["username"]
@@ -99,9 +100,12 @@ def login_success():
     <body>
     <h1>Login Unsuccessful</h1>
     <p>No accounts have been created for you to log into.</p>
-    <p>You can try to sign up <a href="/signup">here</a></p>
+    <button type='button' onclick="location.href='/login'">You can try again here</button>
     </body>
     </html>"""
+    f = open("static/num.txt", "w")
+    f.write(str(login_atts))
+    f.close()
     return page
 
   elif user not in db["users"].keys():
@@ -115,9 +119,12 @@ def login_success():
     <body>
     <h1>Login Unsuccessful</h1>
     <p>Username not found.</p>
-    <p>You can try again <a href='/login'>here</a></p>
+    <button type='button' onclick="location.href='/login'">You can try again here</button>
     </body>
     </html>"""
+    f = open("static/num.txt", "w")
+    f.write(str(login_atts))
+    f.close()
     return page
 
   elif user in db["users"].keys():
@@ -138,28 +145,31 @@ def login_success():
       </body>
       </html>"""
       page = page.replace("{user}", user)
+      f = open("static/num.txt", "w")
+      f.write(str(login_atts))
+      f.close()
       return page
 
     else:
       if user not in num.keys():
         date = datetime.date.today()
-        num[user] = {"num":1, "date":date}
+        login_atts[user] = {"num":1, "date":date}
 
       else:
         date = datetime.date.today()
-        if num[user]["date"] <= date + datetime.timedelta(days=3):
-          num[user]["num"] = 1
-          num[user]["date"] = date
+        if login_atts[user]["date"] <= date + datetime.timedelta(days=3):
+          login_atts[user]["num"] = 1
+          login_atts[user]["date"] = date
 
         else:
-          num[user]['num'] += 1
+          login_atts[user]['num'] += 1
 
-      f = open("num.txt", "w")
-      f.write(str(num))
+      f = open("static/num.txt", "w")
+      f.write(str(login_atts))
       f.close()
       
-      if num == 6:
-        return redirect("https://rickroll.it/rickroll.mp4")
+      if login_atts[user]['num'] >= 6:
+        return redirect("https://rickroll.it/")
 
       else:
         return redirect("/loginfail")
@@ -183,9 +193,17 @@ def loginfail():
   </body>
   </html>"""
   return page
-    
-@app.route('/play', methods=["POST"])
+
+num = random.randint(1, 100)
+@app.route('/play', methods=["POST", "GET"])
 def play():
-  return "play"
+  page = ""
+  f = open("pages/play.html", "r")
+  page = f.read()
+  f.close()
+  if request.method == "POST":
+    
+  
+  return page
 
 app.run(host='0.0.0.0', port=81)
