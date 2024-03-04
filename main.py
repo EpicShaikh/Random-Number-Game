@@ -344,15 +344,16 @@ while ply == "y":
 
     list.sort()
     counter = 1
-
-    for key, value in db['users'].items():
-      for item in list:
+    
+    for item in list:
+      for key, value in db['users'].items():
         if value == item:
           print(f"\033[33m{counter}. {key} : {value}\033[0m\n")
           counter += 1
-
+  
         else:
           continue
+      
 
     h = input("")
     os.system("clear")
