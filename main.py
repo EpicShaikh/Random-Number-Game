@@ -185,25 +185,34 @@ while ply == "y":
             continue
 
         tracker.sort()
+
+        track = []
         
         for i in tracker:
           for item in score:
             iitem = item.split(" ")
-            if iitem == [''] or counter >= len(score):
+            if iitem == ['']:
               break
               
             elif i == iitem[1]:
-              print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\033[0m\n")
-              counter += 1
+              if iitem[0] not in track:
+                print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\033[0m\n")
+                counter += 1
+                track.append(iitem[0])
+
+              else:
+                continue
 
             else:
               continue
 
       f.close()
-      input("Press enter to continue: ")
+      input()
       os.system("clear")
 
     elif menu == "3":
+      time.sleep(1)
+      os.system("clear")
       break
 
     else:
@@ -333,11 +342,12 @@ while ply == "y":
           list_debg(list_num, g)
 
     print(f"\033[33mThe computer played 3 rounds and ended with a total of {gme_atts} attempts!\033[0m\n")
-    print(f"\033[33mThe computer got an average of {gme_atts//3} (rounded) attempts per round!\033[0m\n")
-    rnd = input("\033[35mwould you like to see the non-rounded average? (y/n): \033[0m").strip().lower()
+    print(f"\033[33mThe computer got an average of {gme_atts // 3} (rounded) attempts per round!\033[0m\n")
+    if gme_atts % 3 != 0:
+      rnd = input("\033[35mwould you like to see the non-rounded average? (y/n): \033[0m").strip().lower()
 
-    if rnd == "y":
-      print(f"\n\033[33mThe computer got an unrounded average of {gme_atts / 3} attempts per round!\033[0m\n")
+      if rnd == "y":
+        print(f"\n\033[33mThe computer got an unrounded average of {gme_atts / 3} attempts per round!\033[0m\n")
 
     ply = input("\n\033[34mWould you like to play again? (y/n): \033[0m").strip().lower()
     time.sleep(0.7)
@@ -359,18 +369,23 @@ while ply == "y":
 
     list.sort()
     counter = 1
-    
+    llist = []
     for item in list:
       for key, value in db['users'].items():
         if value == item:
-          print(f"\033[33m{counter}. {key}: {value}\033[0m\n")
-          counter += 1
-  
+          if key not in llist:
+            print(f"\033[33m{counter}. {key}: {value}\033[0m\n")
+            llist.append(key)
+            counter += 1
+
+          else:
+            continue
+    
         else:
           continue
       
 
-    h = input("")
+    input()
     os.system("clear")
 
   elif ply_g == "4":
