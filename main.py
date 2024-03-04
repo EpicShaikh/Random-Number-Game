@@ -189,20 +189,18 @@ while ply == "y":
         for i in tracker:
           for item in score:
             iitem = item.split(" ")
-            if iitem == ['']:
-              print("\033[0m")
-              continue
+            if iitem == [''] or counter >= len(score):
+              break
               
             elif i == iitem[1]:
-              print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\n")
+              print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\033[0m\n")
               counter += 1
 
             else:
               continue
 
       f.close()
-
-      time.sleep(5)
+      input("Press enter to continue: ")
       os.system("clear")
 
     elif menu == "3":
