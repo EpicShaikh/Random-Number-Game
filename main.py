@@ -174,14 +174,31 @@ while ply == "y":
         print("\033[33mLeaderboard:\033[0m\n\n")
         score = scores.split("\n")
         counter = 1
+        tracker = []
 
         for i in score:
           n = i.split(" ")
-          print(f"\033[36m{counter}) {n[0]}: {n[1]}\033[0m\n")
-          counter += 1
+          if n != ['']:
+            tracker.append(n[1])
 
-          if counter == len(score):
-            break
+          else:
+            continue
+
+        tracker.sort()
+        
+        for i in tracker:
+          for item in score:
+            iitem = item.split(" ")
+            if iitem == ['']:
+              print("\033[0m")
+              continue
+              
+            elif i == iitem[1]:
+              print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\n")
+              counter += 1
+
+            else:
+              continue
 
       f.close()
 
@@ -348,7 +365,7 @@ while ply == "y":
     for item in list:
       for key, value in db['users'].items():
         if value == item:
-          print(f"\033[33m{counter}. {key} : {value}\033[0m\n")
+          print(f"\033[33m{counter}. {key}: {value}\033[0m\n")
           counter += 1
   
         else:
