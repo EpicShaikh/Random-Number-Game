@@ -1,2 +1,2 @@
-Hannu 15
-Ali 15
+Hannu 10
+Ali 13

@@ -7,12 +7,12 @@ import time
 ply = "y"
 
 while ply == "y":
-  print("\n\033[34mRandom Number Game\033[0m\n")
+  print("\033[34mRandom Number Game\033[0m\n")
   time.sleep(0.6)
-  ply_g = input("\033[33m1. Play guess the number (This mode has a leaderboard that ends every season)\n2. Let the computer guess your number \n3. See the all-time leaderboard\n4. Delete an existing Account\n\n> ").strip().lower()
+  ply_g = input("\033[33m1. Guess the Number (This Mode Has a Leaderboard That Ends Every Season)\n2. Let the Computer Guess Your Number \n3. See the All-Time Leaderboard\n4. Delete an Existing Account\n5. Exit Application\n\n> ").strip().lower()
   print("\033[0m")
 
-  if ply_g != "1" and ply_g != "2" and ply_g != "3" and ply_g != "4" and ply_g != "db":
+  if ply_g != "1" and ply_g != "2" and ply_g != "3" and ply_g != "4" and ply_g != "5" and ply_g != "db":
     print("\n\033[31m\nInvalid Input.\033[0m\n\nplease try again")
     time.sleep(1)
     os.system("clear")
@@ -52,12 +52,32 @@ while ply == "y":
       gme_atts = 0
   
       with open("leader.txt", "r") as f:
-        leader = f.read().split()
-  
+        leader = f.read().split("\n")
+        leader.remove("")
+        track = []
+        for i in leader:
+          n = i.split(" ")
+          track.append(n[1])
+
+        track.sort()
+
+        for item in track:
+          for i in leader:
+            if item in i:
+              del leader
+              n = i.split(" ")
+              leader = [n[0], n[1]]
+              break
+
+            else:
+              continue
+
+          break
+
       f.close()
   
       if leader:
-        print(f"\n\033[33mThe current leader is {leader[0]} and has {leader[1]} points!\033[0m\n")
+        print(f"\033[33mThe current leader is {leader[0]}, with {leader[1]} attempts!\033[0m")
   
       else:
         print("\n\033[33mThere is no leader yet!\nYou are safe to take the title!\033[0m\n")
@@ -120,25 +140,25 @@ while ply == "y":
       print(f"\n\033[33mYou played 3 rounds and ended with a total of {gme_atts} attempts!\033[0m\n")
   
       with open("leader.txt", "r") as f:
-        board = f.read().split()
-  
-        if board[0] == "" or player not in board:
-          f.close()
-          
-          with open("leader.txt", "a+") as f:
-            f.write(f"{player} {gme_atts}\n")
-  
-          f.close()
-  
-        elif player in board and gme_atts < int(board[board.index(player) + 1]):
-          print("\n\033[33mYou have a new leaderboard high score!\033[0m\n")
-  
-          with open("leader.txt", "w") as f:
-            board[board.index(player) + 1] = str(gme_atts)
-            f.write("\n".join(board))
-  
-          f.close()
-          
+        board = f.read().split("\n")
+
+        for i in board:
+          if i == "" or player not in i:
+            f.close()
+            
+            with open("leader.txt", "a+") as f:
+              f.write(f"{player} {gme_atts}\n")
+    
+            f.close()
+    
+          elif player in board and gme_atts < int(board[board.index(player) + 1]):
+            print("\n\033[33mYou have a new leaderboard high score!\033[0m\n")
+            
+            with open("leader.txt", "w") as f:
+              f.write(i if i != f"{player} {gme_atts}" else f"{player} {gme_atts}\n")
+    
+            f.close()
+            
       f.close()
       
       if gme_atts < high:
@@ -171,7 +191,7 @@ while ply == "y":
 
       with open("leader.txt", "r") as f:
         scores = f.read()
-        print("\033[33mLeaderboard:\033[0m\n\n")
+        print("\033[33mLeaderboard\n".center(150))
         score = scores.split("\n")
         counter = 1
         tracker = []
@@ -196,7 +216,7 @@ while ply == "y":
               
             elif i == iitem[1]:
               if iitem[0] not in track:
-                print(f"\033[33m{counter}. {iitem[0]}: {iitem[1]}\033[0m\n")
+                print(f"{counter}. {iitem[0]}: {iitem[1]}\n".center(145))
                 counter += 1
                 track.append(iitem[0])
 
@@ -205,6 +225,8 @@ while ply == "y":
 
             else:
               continue
+
+        print("\033[0m")
 
       f.close()
       input()
@@ -363,6 +385,7 @@ while ply == "y":
     time.sleep(1)
     os.system("clear")
     list = []
+    print("\033[33mLeaderboard\n".center(150))
 
     for value in db['users'].values():
       list.append(value)
@@ -374,7 +397,7 @@ while ply == "y":
       for key, value in db['users'].items():
         if value == item:
           if key not in llist:
-            print(f"\033[33m{counter}. {key}: {value}\033[0m\n")
+            print(f"{counter}. {key}: {value}\n".center(145))
             llist.append(key)
             counter += 1
 
@@ -383,6 +406,8 @@ while ply == "y":
     
         else:
           continue
+
+    print("\033[0m")
       
 
     input()
@@ -432,6 +457,11 @@ while ply == "y":
       os.system("clear")
       continue
 
+  elif ply_g == "5":
+    time.sleep(1)
+    os.system("clear")
+    exit("\033[32mThanks for playing!\033[0m")
+    
   elif ply_g == "db":
     time.sleep(1)
     os.system("clear")
