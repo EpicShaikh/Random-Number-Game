@@ -19,7 +19,7 @@ while ply == "y":
     continue
 
   while ply_g == "1":
-    menu = input("\n\033[33m\n1. play\n2. see the leaderboard\n3. exit\n\n> ")
+    menu = input("\n\033[33m\n1. Play\n2. See the Leaderboard\n3. Exit\n\n> ")
     if menu == "1":
       player = input("\n\033[32mInput Name: \033[0m").strip().capitalize()
       
