@@ -5,6 +5,7 @@ import random
 import time
 
 ply = "y"
+n = None
 
 while ply == "y":
   print("\033[34mRandom Number Game\033[0m\n")
@@ -76,7 +77,10 @@ while ply == "y":
 
       f.close()
   
-      if leader:
+      if leader and leader[0] == player:
+        print(f"\033[33mThe current leader is you, with {leader[1]} attempts!\033[0m")
+
+      elif leader:
         print(f"\033[33mThe current leader is {leader[0]}, with {leader[1]} attempts!\033[0m")
   
       else:
@@ -97,8 +101,23 @@ while ply == "y":
         while True:
           gme_atts += 1
           attempt += 1
-          num = pyip.inputNum("\033[32mGuess a number: \033[0m")
-          
+          num = input("\033[32mGuess a Number or Exit by Pressing Q: \033[0m").strip().lower()
+
+          if num == "q":
+            n = num
+            time.sleep(1)
+            os.system("clear")
+            break
+
+          try:
+            num = int(num)
+
+          except ValueError:
+            print("\n\033[31mInvalid Input.\033[0m\n")
+            time.sleep(1)
+            os.system("clear")
+            continue
+            
           if num in g:
             print(f"\n\033[31mYou already guessed {num}.\033[0m\n")
             time.sleep(1)
@@ -133,10 +152,16 @@ while ply == "y":
           print(num)
           print(f"\n\033[31m{res}\033[0m\n")
   
+        if n == "q":
+          break
+
         print("\n\033[33mCorrect!\033[0m\n")
         print(f"\033[33mYou got it in {attempt} attempts!\033[0m")
         time.sleep(1.5)
-  
+
+      if n == "q":
+        break
+        
       print(f"\n\033[33mYou played 3 rounds and ended with a total of {gme_atts} attempts!\033[0m\n")
   
       with open("leader.txt", "r") as f:
@@ -160,6 +185,9 @@ while ply == "y":
             f.close()
             
       f.close()
+
+      if n == "q":
+        continue
       
       if gme_atts < high:
         print("\n\033[33mYou have a new high score!\033[0m\n")
