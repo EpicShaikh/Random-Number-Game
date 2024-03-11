@@ -58,17 +58,14 @@ while ply == "y":
         track.append(i)
 
       track.sort()
+      
+      for k, i in leader.items():
+        if track[0] == i:
+          leader = [k, i]
+          break
 
-      for item in track:
-        for k, i in leader.items():
-          if item == i:
-            leader = [k, i]
-            break
-
-          else:
-            continue
-
-        break
+        else:
+          continue
   
       if leader and leader[0] == player:
         print(f"\033[33mThe current leader is you, with {leader[1]} attempts!\033[0m")
