@@ -1,8 +1,8 @@
 import pyinputplus as pyip
 from replit import db
-import os
 import random
 import time
+import os
 
 ply = "y"
 n = None
@@ -54,7 +54,7 @@ while ply == "y":
 
       leader = db["leaderboard"]
       track = []
-      for k, i in leader.items():
+      for _, i in leader.items():
         track.append(i)
 
       track.sort()
@@ -193,7 +193,8 @@ while ply == "y":
       os.system("clear")
   
       if ply == "n":
-        exit("\n\033[33mThanks for playing!\033[0m")
+        print("\n\033[33mThanks for playing!\033[0m")
+        exit()
   
       elif ply == "y":
         break
@@ -368,7 +369,8 @@ while ply == "y":
     os.system("clear")
 
     if ply == "n":
-      exit("\n\033[33mThanks for playing!\033[0m")
+      print("\n\033[33mThanks for playing!\033[0m")
+      exit()
 
     elif ply == "y":
       break
@@ -385,6 +387,7 @@ while ply == "y":
     list.sort()
     counter = 1
     llist = []
+    
     for item in list:
       for key, value in db['users'].items():
         if value == item:
@@ -436,7 +439,8 @@ while ply == "y":
   elif ply_g == "5":
     time.sleep(1)
     os.system("clear")
-    exit("\033[32mThanks for playing!\033[0m")
+    print("\n\033[33mThanks for playing!\033[0m")
+    exit()
     
   elif ply_g == "db":
     time.sleep(1)
