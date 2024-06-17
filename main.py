@@ -98,7 +98,6 @@ while ply == "y":
             time.sleep(1)
             os.system("clear")
             break
-
           try:
             num = int(num)
 
