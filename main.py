@@ -47,13 +47,9 @@ def signup():
 @app.route('/signed-up', methods=["POST"])
 def signed():
   form = request.form
-  salt = random.randint(1000, 9999)
   user = form["username"]
-  password = f'{form["password"]}{str(salt)}'
-  password = hash(password)
   
   if db.keys() == set():
-    db["users"] = {user:{"password":password, "salt":salt, "highscore":100}}
     return redirect("/rng-menu")
     
 
@@ -80,12 +76,10 @@ def signed():
     return page
 
   else:
-    db["users"][user] = {"password":password, "salt":salt, "highscore":100}
     return redirect("/rng-menu")
 
 @app.route('/login-success', methods=["POST"])
 def login_success():
-  global login_atts
   page = ""
   form = request.form
   user = form["username"]
@@ -103,9 +97,6 @@ def login_success():
     <button type='button' onclick="location.href='/login'">You can try again here</button>
     </body>
     </html>"""
-    f = open("static/num.txt", "w")
-    f.write(str(login_atts))
-    f.close()
     return page
 
   elif user not in db["users"].keys():
@@ -122,57 +113,27 @@ def login_success():
     <button type='button' onclick="location.href='/login'">You can try again here</button>
     </body>
     </html>"""
+    return page
+
+  elif user in db["users"].keys():
+    page = """<!DOCTYPEhtml>
+    <html>
+    <head>
+    <title>Login Successful</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link href='static/CSS/style.css' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    <h1>Login Successful</h1>
+    <p>Welcome, {user}!</p>
+    <button type='button' onclick="location.href='/play' class='play'">Play</button>
+    </body>
+    </html>"""
+    page = page.replace("{user}", user)
     f = open("static/num.txt", "w")
     f.write(str(login_atts))
     f.close()
     return page
-
-  elif user in db["users"].keys():
-    form_pass = f"{form['password']}{db['users'][user]['salt']}"
-    form_pass = hash(form_pass)
-    if form_pass == db['users'][user]['password']:
-      page = """<!DOCTYPEhtml>
-      <html>
-      <head>
-      <title>Login Successful</title>
-      <link rel="icon" href="/static/favicon.ico">
-      <link href='static/CSS/style.css' rel='stylesheet' type='text/css'>
-      </head>
-      <body>
-      <h1>Login Successful</h1>
-      <p>Welcome, {user}!</p>
-      <button type='button' onclick="location.href='/play' class='play'">Play</button>
-      </body>
-      </html>"""
-      page = page.replace("{user}", user)
-      f = open("static/num.txt", "w")
-      f.write(str(login_atts))
-      f.close()
-      return page
-
-    else:
-      if user not in num.keys():
-        date = datetime.date.today()
-        login_atts[user] = {"num":1, "date":date}
-
-      else:
-        date = datetime.date.today()
-        if login_atts[user]["date"] <= date + datetime.timedelta(days=3):
-          login_atts[user]["num"] = 1
-          login_atts[user]["date"] = date
-
-        else:
-          login_atts[user]['num'] += 1
-
-      f = open("static/num.txt", "w")
-      f.write(str(login_atts))
-      f.close()
-      
-      if login_atts[user]['num'] >= 6:
-        return redirect("https://rickroll.it/")
-
-      else:
-        return redirect("/loginfail")
         
   else:
     return redirect("/rng-menu")
@@ -188,20 +149,25 @@ def loginfail():
   </head>
   <body>
   <h1>Login Unsuccessful</h1>
-  <p>Password Incorrect.</p>
   <button type='button' onclick="location.href='/login'">You can try again here</button>
   </body>
   </html>"""
   return page
 
 num = random.randint(1, 100)
-@app.route('/play', methods=["POST", "GET"])
-def play():
+@app.route('/play/<variable>', methods=["POST", "GET"])
+def play(variable):
   page = ""
   f = open("pages/play.html", "r")
   page = f.read()
   f.close()
-  if request.method == "POST":
+
+  if request.method == "GET":
+    form = request.form
+    guess = int(form["guess"])
+
+  elif request.method == "POST":
+    form = request.form
     
   
   return page
